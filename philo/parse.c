@@ -19,6 +19,8 @@ static long   atolong(const char *s)
 
 int parse_args(t_sim *sim, int argc, char **argv)
 {
+    long    tmp;
+
     if (argc < 5 || argc > 6)
     {
         fprintf(stderr, "Usage: %s number_of_philosophers time_to_die time_to_eat time_to_sleep [times_must_eat]\n", argv[0]);
@@ -30,15 +32,18 @@ int parse_args(t_sim *sim, int argc, char **argv)
     sim->t_sleep = (int)atolong(argv[4]);
     sim->must_eat = -1;
     if (argc == 6)
-        sim->must_eat = (int)atolong(argv[5]);
+    {
+        tmp = atolong(argv[5]);
+        if (tmp <= 0)
+        {
+            fprintf(stderr, "number_of_times_each_philosopher_must_eat must be a positive integer.\n");
+            return (1);
+        }
+        sim->must_eat = (int)tmp;
+    }
     if (sim->count <= 0 || sim->t_die <= 0 || sim->t_eat <= 0 || sim->t_sleep <= 0)
     {
         fprintf(stderr, "All timing and philosopher counts must be positive integers.\n");
-        return (1);
-    }
-    if (sim->must_eat == 0)
-    {
-        printf("Simulation finished instantly because must_eat = 0.\n");
         return (1);
     }
     sim->stop = 0;

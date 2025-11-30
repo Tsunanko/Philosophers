@@ -22,20 +22,47 @@ static void update_meal(t_philo *philo)
 
 static void take_forks(t_philo *philo)
 {
+    pthread_mutex_t   *first;
+    pthread_mutex_t   *second;
+
     if (philo->sim->count == 1)
     {
         pthread_mutex_lock(philo->left);
         print_status(philo, "has taken a fork");
         ms_sleep(philo->sim, philo->sim->t_die);
         pthread_mutex_unlock(philo->left);
+        if (!get_stop(philo->sim))
+        {
+            print_status(philo, "died");
+            pthread_mutex_lock(&philo->sim->state);
+            philo->sim->stop = 1;
+            pthread_mutex_unlock(&philo->sim->state);
+        }
         return ;
     }
+    first = philo->left;
+    second = philo->right;
     if (philo->id % 2 == 0)
-        usleep(1000 * (philo->sim->t_eat / 2));
-    pthread_mutex_lock(philo->left);
+    {
+        first = philo->right;
+        second = philo->left;
+    }
+    pthread_mutex_lock(first);
     print_status(philo, "has taken a fork");
-    pthread_mutex_lock(philo->right);
+    pthread_mutex_lock(second);
     print_status(philo, "has taken a fork");
+}
+
+static int  think_delay(t_sim *sim)
+{
+    int delay;
+
+    if (sim->count % 2 == 0)
+        return (0);
+    delay = (sim->t_die - (sim->t_eat + sim->t_sleep)) / 2;
+    if (delay < 0)
+        delay = 0;
+    return (delay);
 }
 
 static void eat_sleep_think(t_philo *philo)
@@ -51,6 +78,7 @@ static void eat_sleep_think(t_philo *philo)
     print_status(philo, "is sleeping");
     ms_sleep(philo->sim, philo->sim->t_sleep);
     print_status(philo, "is thinking");
+    ms_sleep(philo->sim, think_delay(philo->sim));
 }
 
 void    *philo_routine(void *arg)
