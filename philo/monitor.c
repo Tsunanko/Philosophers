@@ -5,16 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 12:00:00 by ijoja             #+#    #+#             */
-/*   Updated: 2024/05/26 12:00:00 by ijoja            ###   ########.fr       */
+/*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
+/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int  check_starved(t_sim *sim, int idx)
+static int	check_starved(t_sim *sim, int idx)
 {
-	long    elapsed;
+	long	elapsed;
 
 	pthread_mutex_lock(&sim->state);
 	elapsed = now_ms() - sim->philos[idx].last_meal;
@@ -29,9 +29,9 @@ static int  check_starved(t_sim *sim, int idx)
 	return (0);
 }
 
-static int  check_full(t_sim *sim)
+static int	check_full(t_sim *sim)
 {
-	int done;
+	int	done;
 
 	pthread_mutex_lock(&sim->state);
 	done = (sim->must_eat > 0 && sim->finished >= sim->count);
@@ -41,10 +41,10 @@ static int  check_full(t_sim *sim)
 	return (done);
 }
 
-void    *monitor(void *arg)
+void	*monitor(void *arg)
 {
-	t_sim   *sim;
-	int     i;
+	t_sim	*sim;
+	int		i;
 
 	sim = (t_sim *)arg;
 	while (!get_stop(sim))

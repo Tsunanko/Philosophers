@@ -5,25 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 12:00:00 by ijoja             #+#    #+#             */
-/*   Updated: 2024/05/26 12:00:00 by ijoja            ###   ########.fr       */
+/*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
+/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int  print_usage(char *prog)
+static int	print_usage(char *prog)
 {
 	fprintf(stderr,
 		"Usage: %s number_of_philosophers time_to_die time_to_eat "
-		"time_to_sleep [times_must_eat]\n", prog);
+		"time_to_sleep [times_must_eat]\\n", prog);
 	return (1);
 }
 
-static long atolong(const char *s)
+static long	atolong(const char *s)
 {
-	long    res;
-	int     i;
+	long	res;
+	int	i;
 
 	res = 0;
 	i = 0;
@@ -37,9 +37,9 @@ static long atolong(const char *s)
 	return (res);
 }
 
-static int  parse_optional(t_sim *sim, int argc, char **argv)
+static int	parse_optional(t_sim *sim, int argc, char **argv)
 {
-	long    tmp;
+	long	tmp;
 
 	sim->must_eat = -1;
 	if (argc == 6)
@@ -49,7 +49,7 @@ static int  parse_optional(t_sim *sim, int argc, char **argv)
 		{
 			fprintf(stderr,
 				"number_of_times_each_philosopher_must_eat "
-				"must be a positive integer.\n");
+				"must be a positive integer.\\n");
 			return (1);
 		}
 		sim->must_eat = (int)tmp;
@@ -57,7 +57,7 @@ static int  parse_optional(t_sim *sim, int argc, char **argv)
 	return (0);
 }
 
-int parse_args(t_sim *sim, int argc, char **argv)
+int	parse_args(t_sim *sim, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (print_usage(argv[0]));
@@ -71,7 +71,7 @@ int parse_args(t_sim *sim, int argc, char **argv)
 		|| sim->t_eat <= 0 || sim->t_sleep <= 0)
 	{
 		fprintf(stderr,
-			"All timing and philosopher counts must be positive integers.\n");
+			"All timing and philosopher counts must be positive integers.\\n");
 		return (1);
 	}
 	sim->stop = 0;

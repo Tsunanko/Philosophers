@@ -5,17 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 12:00:00 by ijoja             #+#    #+#             */
-/*   Updated: 2024/05/26 12:00:00 by ijoja            ###   ########.fr       */
+/*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
+/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    print_status(t_philo *philo, const char *status)
+void	print_status(t_philo *philo, const char *status)
 {
-	long    timestamp;
-	int     stopped;
+	long	timestamp;
+	int		stopped;
 
 	pthread_mutex_lock(&philo->sim->print);
 	pthread_mutex_lock(&philo->sim->state);
@@ -24,7 +24,7 @@ void    print_status(t_philo *philo, const char *status)
 	if (!stopped)
 	{
 		timestamp = elapsed_ms(philo->sim->start_ms);
-		printf("%ld %d %s\n", timestamp, philo->id, status);
+		printf("%ld %d %s\\n", timestamp, philo->id, status);
 	}
 	pthread_mutex_unlock(&philo->sim->print);
 }
