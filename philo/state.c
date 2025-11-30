@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   state.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,29 @@
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+int get_stop(t_sim *sim)
 {
-	t_sim   sim;
+	int stop;
 
-	if (parse_args(&sim, argc, argv) != 0)
-		return (1);
-	if (setup_sim(&sim) != 0)
-	{
-		cleanup_sim(&sim);
-		return (1);
-	}
-	if (launch_simulation(&sim) != 0)
-	{
-		cleanup_sim(&sim);
-		return (1);
-	}
-	cleanup_sim(&sim);
-	return (0);
+	pthread_mutex_lock(&sim->state);
+	stop = sim->stop;
+	pthread_mutex_unlock(&sim->state);
+	return (stop);
+}
+
+void    set_stop(t_sim *sim)
+{
+	pthread_mutex_lock(&sim->state);
+	sim->stop = 1;
+	pthread_mutex_unlock(&sim->state);
+}
+
+void    record_meal(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->sim->state);
+	philo->last_meal = now_ms();
+	philo->meals += 1;
+	if (philo->sim->must_eat > 0 && philo->meals == philo->sim->must_eat)
+		philo->sim->finished += 1;
+	pthread_mutex_unlock(&philo->sim->state);
 }

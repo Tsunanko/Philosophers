@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   launch.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,24 @@
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+int launch_simulation(t_sim *sim)
 {
-	t_sim   sim;
+	pthread_t   watcher;
+	int         i;
 
-	if (parse_args(&sim, argc, argv) != 0)
-		return (1);
-	if (setup_sim(&sim) != 0)
+	i = 0;
+	while (i < sim->count)
 	{
-		cleanup_sim(&sim);
-		return (1);
+		if (pthread_create(&sim->philos[i].thread, NULL,
+				philo_routine, &sim->philos[i]) != 0)
+			return (1);
+		i++;
 	}
-	if (launch_simulation(&sim) != 0)
-	{
-		cleanup_sim(&sim);
+	if (pthread_create(&watcher, NULL, monitor, sim) != 0)
 		return (1);
-	}
-	cleanup_sim(&sim);
+	i = 0;
+	while (i < sim->count)
+		pthread_join(sim->philos[i++].thread, NULL);
+	pthread_join(watcher, NULL);
 	return (0);
 }
