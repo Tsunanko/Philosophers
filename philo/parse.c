@@ -14,8 +14,10 @@
 
 static int	print_usage(char *prog)
 {
-	fprintf(stderr, "Usage: %s number_of_philosophers time_to_die "
-	"time_to_eat time_to_sleep [times_must_eat]\n", prog);
+	fprintf(stderr,
+	"Usage: %s number_of_philosophers time_to_die time_to_eat "
+	"time_to_sleep [times_must_eat]\n",
+	prog);
 	return (1);
 }
 
@@ -55,7 +57,7 @@ static int	parse_optional(t_sim *sim, int argc, char **argv)
 	return (0);
 }
 
-int	parse_args(t_sim *sim, int argc, char **argv)
+int			parse_args(t_sim *sim, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (print_usage(argv[0]));

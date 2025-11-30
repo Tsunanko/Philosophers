@@ -23,8 +23,8 @@ struct s_philo;
 
 typedef struct s_sim
 {
-	int				count;
-	long			start_ms;
+	int			count;
+	long		start_ms;
 	int			t_die;
 	int			t_eat;
 	int			t_sleep;
@@ -41,29 +41,29 @@ typedef struct s_philo
 {
 	int			id;
 	int			meals;
-	long			last_meal;
+	long		last_meal;
 	pthread_t		thread;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	t_sim			*sim;
 }	t_philo;
 
-int	parse_args(t_sim *sim, int argc, char **argv);
-int	setup_sim(t_sim *sim);
-void	cleanup_sim(t_sim *sim);
+int			parse_args(t_sim *sim, int argc, char **argv);
+int			setup_sim(t_sim *sim);
+void		cleanup_sim(t_sim *sim);
 
-long	now_ms(void);
-long	elapsed_ms(long start);
-void	ms_sleep(t_sim *sim, int duration);
+long			now_ms(void);
+long			elapsed_ms(long start);
+void			ms_sleep(t_sim *sim, int duration);
 
-void	print_status(t_philo *philo, const char *status);
+void			print_status(t_philo *philo, const char *status);
 
-int	get_stop(t_sim *sim);
-void	set_stop(t_sim *sim);
-void	record_meal(t_philo *philo);
-void	*monitor(void *arg);
+int			get_stop(t_sim *sim);
+void			set_stop(t_sim *sim);
+void			record_meal(t_philo *philo);
+void			*monitor(void *arg);
 
-void	*philo_routine(void *arg);
-int	launch_simulation(t_sim *sim);
+void			*philo_routine(void *arg);
+int			launch_simulation(t_sim *sim);
 
 #endif
