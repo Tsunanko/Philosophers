@@ -5,14 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 12:00:00 by ijoja             #+#    #+#             */
-/*   Updated: 2024/05/26 12:00:00 by ijoja            ###   ########.fr       */
+/*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
+/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "philo.h"
 
-static int  init_mutexes(t_sim *sim)
+static int	init_mutexes(t_sim *sim)
 {
 	int i;
 
@@ -62,7 +61,7 @@ int setup_sim(t_sim *sim)
 	return (0);
 }
 
-void    cleanup_sim(t_sim *sim)
+void	cleanup_sim(t_sim *sim)
 {
 	int i;
 

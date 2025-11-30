@@ -9,7 +9,6 @@
 /*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "philo.h"
 
 static int	check_starved(t_sim *sim, int idx)

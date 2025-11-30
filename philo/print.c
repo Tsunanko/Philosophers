@@ -9,7 +9,6 @@
 /*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "philo.h"
 
 void	print_status(t_philo *philo, const char *status)

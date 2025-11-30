@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 12:00:00 by ijoja             #+#    #+#             */
-/*   Updated: 2024/05/26 12:00:00 by ijoja            ###   ########.fr       */
+/*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
+/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "philo.h"
 
 int get_stop(t_sim *sim)
@@ -22,14 +21,14 @@ int get_stop(t_sim *sim)
 	return (stop);
 }
 
-void    set_stop(t_sim *sim)
+void	set_stop(t_sim *sim)
 {
 	pthread_mutex_lock(&sim->state);
 	sim->stop = 1;
 	pthread_mutex_unlock(&sim->state);
 }
 
-void    record_meal(t_philo *philo)
+void	record_meal(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->sim->state);
 	philo->last_meal = now_ms();

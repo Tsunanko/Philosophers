@@ -5,30 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 12:00:00 by ijoja             #+#    #+#             */
-/*   Updated: 2024/05/26 12:00:00 by ijoja            ###   ########.fr       */
+/*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
+/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "philo.h"
 
-long    now_ms(void)
+long	now_ms(void)
 {
-	struct timeval  tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-long    elapsed_ms(long start)
+long	elapsed_ms(long start)
 {
 	return (now_ms() - start);
 }
 
-void    ms_sleep(t_sim *sim, int duration)
+void	ms_sleep(t_sim *sim, int duration)
 {
-	long    end;
-	int     stop;
+	long	end;
+	int	stop;
 
 	end = now_ms() + duration;
 	while (now_ms() < end)
