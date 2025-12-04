@@ -6,6 +6,10 @@
 - 引数: `number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]`
 - 制約: グローバル変数禁止、pthread と mutex のみ使用可、ログの競合禁止、死亡検出は 10ms 以内。
 
+## 0. リポジトリの状況メモ
+- 現在のブランチ `work` には最新の修正（起動直後の `last_meal` 初期化と偶数 ID のスタッガー）がコミット済みです。
+- `git log --oneline -1` で直近コミット `Improve philosopher startup timing` を確認できます。
+
 ## 2. データ構造の設計
 - `t_sim`: 時刻基準 (start_ts)、設定値、終了フラグ、出力用 mutex。
 - `t_fork`: フォーク用 mutex。
