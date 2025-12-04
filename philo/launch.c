@@ -14,7 +14,17 @@
 int	launch_simulation(t_sim *sim)
 {
 	pthread_t	watcher;
-	int		i;
+	int			i;
+
+	pthread_mutex_lock(&sim->state);
+	sim->start_ms = now_ms();
+	i = 0;
+	while (i < sim->count)
+	{
+		sim->philos[i].last_meal = sim->start_ms;
+		i++;
+	}
+	pthread_mutex_unlock(&sim->state);
 
 	i = 0;
 	while (i < sim->count)
