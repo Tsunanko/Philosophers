@@ -79,8 +79,11 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->sim->state);
+	philo->last_meal = now_ms();
+	pthread_mutex_unlock(&philo->sim->state);
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		ms_sleep(philo->sim, philo->sim->t_eat / 2);
 	while (!get_stop(philo->sim))
 		eat_sleep_think(philo);
 	return (NULL);

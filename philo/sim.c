@@ -41,7 +41,7 @@ static void	assign_forks(t_sim *sim)
 	{
 		sim->philos[i].id = i + 1;
 		sim->philos[i].meals = 0;
-		sim->philos[i].last_meal = sim->start_ms;
+                sim->philos[i].last_meal = 0;
 		sim->philos[i].left = &sim->forks[i];
 		sim->philos[i].right = &sim->forks[(i + 1) % sim->count];
 		sim->philos[i].sim = sim;
@@ -53,11 +53,11 @@ int	setup_sim(t_sim *sim)
 {
 	if (init_mutexes(sim) != 0)
 		return (1);
-	sim->philos = malloc(sizeof(t_philo) * sim->count);
-	if (!sim->philos)
-		return (1);
-	sim->start_ms = now_ms();
-	assign_forks(sim);
+        sim->philos = malloc(sizeof(t_philo) * sim->count);
+        if (!sim->philos)
+                return (1);
+        sim->start_ms = 0;
+        assign_forks(sim);
 	return (0);
 }
 
