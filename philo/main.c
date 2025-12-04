@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-int			main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_sim			sim;
+	t_sim	sim;
 
 	if (parse_args(&sim, argc, argv) != 0)
 		return (1);

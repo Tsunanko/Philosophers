@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 #include "philo.h"
 
-int			launch_simulation(t_sim *sim)
+int	launch_simulation(t_sim *sim)
 {
 	pthread_t	watcher;
-	int			i;
+	int		i;
 
 	i = 0;
 	while (i < sim->count)

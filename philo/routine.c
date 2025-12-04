@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "philo.h"
 
-static void handle_single(t_philo *philo)
+static void	handle_single(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left);
 	print_status(philo, "has taken a fork");
@@ -24,16 +24,16 @@ static void handle_single(t_philo *philo)
 	}
 }
 
-static void pick_fork(pthread_mutex_t *fork, t_philo *philo)
+static void	pick_fork(pthread_mutex_t *fork, t_philo *philo)
 {
 	pthread_mutex_lock(fork);
 	print_status(philo, "has taken a fork");
 }
 
-static void take_forks(t_philo *philo)
+static void	take_forks(t_philo *philo)
 {
-	pthread_mutex_t   *first;
-	pthread_mutex_t   *second;
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
 
 	if (philo->sim->count == 1)
 		return (handle_single(philo));
@@ -48,9 +48,9 @@ static void take_forks(t_philo *philo)
 	pick_fork(second, philo);
 }
 
-static void eat_sleep_think(t_philo *philo)
+static void	eat_sleep_think(t_philo *philo)
 {
-	int delay;
+	int	delay;
 
 	take_forks(philo);
 	if (philo->sim->count == 1)
@@ -67,16 +67,16 @@ static void eat_sleep_think(t_philo *philo)
 	if (philo->sim->count % 2 != 0)
 	{
 		delay = (philo->sim->t_die - (philo->sim->t_eat
-					+ philo->sim->t_sleep)) / 2;
+			+ philo->sim->t_sleep)) / 2;
 		if (delay < 0)
 			delay = 0;
 	}
 	ms_sleep(philo->sim, delay);
 }
 
-void    *philo_routine(void *arg)
+void	*philo_routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)

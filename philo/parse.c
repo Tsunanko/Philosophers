@@ -15,9 +15,9 @@
 static int	print_usage(char *prog)
 {
 	fprintf(stderr,
-	"Usage: %s number_of_philosophers time_to_die time_to_eat "
-	"time_to_sleep [times_must_eat]\n",
-	prog);
+		"Usage: %s number_of_philosophers time_to_die time_to_eat "
+		"time_to_sleep [times_must_eat]\n",
+		prog);
 	return (1);
 }
 
@@ -49,7 +49,7 @@ static int	parse_optional(t_sim *sim, int argc, char **argv)
 		if (value <= 0)
 		{
 			fprintf(stderr,
-			"number_of_times_each_philosopher_must_eat must be positive.\n");
+				"number_of_times_each_philosopher_must_eat must be positive.\n");
 			return (1);
 		}
 		sim->must_eat = (int)value;
@@ -57,7 +57,7 @@ static int	parse_optional(t_sim *sim, int argc, char **argv)
 	return (0);
 }
 
-int			parse_args(t_sim *sim, int argc, char **argv)
+int	parse_args(t_sim *sim, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (print_usage(argv[0]));

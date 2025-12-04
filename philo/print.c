@@ -13,17 +13,13 @@
 
 void	print_status(t_philo *philo, const char *status)
 {
-	long	timestamp;
-	int		stopped;
+	long	time;
 
 	pthread_mutex_lock(&philo->sim->print);
-	pthread_mutex_lock(&philo->sim->state);
-	stopped = philo->sim->stop;
-	pthread_mutex_unlock(&philo->sim->state);
-	if (!stopped)
+	if (!get_stop(philo->sim))
 	{
-		timestamp = elapsed_ms(philo->sim->start_ms);
-		printf("%ld %d %s\\n", timestamp, philo->id, status);
+		time = elapsed_ms(philo->sim->start_ms);
+		printf("%ld %d %s\n", time, philo->id, status);
 	}
 	pthread_mutex_unlock(&philo->sim->print);
 }

@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 #include "philo.h"
 
-int get_stop(t_sim *sim)
+int	get_stop(t_sim *sim)
 {
-	int stop;
+	int	value;
 
 	pthread_mutex_lock(&sim->state);
-	stop = sim->stop;
+	value = sim->stop;
 	pthread_mutex_unlock(&sim->state);
-	return (stop);
+	return (value);
 }
 
 void	set_stop(t_sim *sim)
@@ -31,9 +31,9 @@ void	set_stop(t_sim *sim)
 void	record_meal(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->sim->state);
+	philo->meals++;
 	philo->last_meal = now_ms();
-	philo->meals += 1;
 	if (philo->sim->must_eat > 0 && philo->meals == philo->sim->must_eat)
-		philo->sim->finished += 1;
+		philo->sim->finished++;
 	pthread_mutex_unlock(&philo->sim->state);
 }

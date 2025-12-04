@@ -13,7 +13,7 @@
 
 static int	init_mutexes(t_sim *sim)
 {
-	int i;
+	int	i;
 
 	sim->forks = malloc(sizeof(pthread_mutex_t) * sim->count);
 	if (!sim->forks)
@@ -32,9 +32,9 @@ static int	init_mutexes(t_sim *sim)
 	return (0);
 }
 
-static void assign_forks(t_sim *sim)
+static void	assign_forks(t_sim *sim)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < sim->count)
@@ -49,7 +49,7 @@ static void assign_forks(t_sim *sim)
 	}
 }
 
-int setup_sim(t_sim *sim)
+int	setup_sim(t_sim *sim)
 {
 	if (init_mutexes(sim) != 0)
 		return (1);
@@ -63,7 +63,7 @@ int setup_sim(t_sim *sim)
 
 void	cleanup_sim(t_sim *sim)
 {
-	int i;
+	int	i;
 
 	if (sim->forks)
 	{
