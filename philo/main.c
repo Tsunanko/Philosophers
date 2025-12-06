@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ijoja <ijoja@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
-/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
+/*   Updated: 2025/12/06 22:09:06 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ int	main(int argc, char **argv)
 
 	if (parse_args(&sim, argc, argv) != 0)
 		return (1);
-	if (setup_sim(&sim) != 0)
+	if (initialize_simulation(&sim) != 0)
 	{
-		cleanup_sim(&sim);
+		cleanup_simulation(&sim);
 		return (1);
 	}
-	if (launch_simulation(&sim) != 0)
+	if (start_simulation(&sim) != 0)
 	{
-		cleanup_sim(&sim);
+		cleanup_simulation(&sim);
 		return (1);
 	}
-	cleanup_sim(&sim);
+	cleanup_simulation(&sim);
 	return (0);
 }

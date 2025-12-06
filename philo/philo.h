@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ijoja <ijoja@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ijoja <ijoja@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 19:09:59 by ijoja             #+#    #+#             */
-/*   Updated: 2025/11/30 19:09:59 by ijoja            ###   ########.fr       */
+/*   Updated: 2025/12/06 22:55:33 by ijoja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,22 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-struct s_philo;
+# define MS_PER_SEC		1000
+# define US_PER_MS		1000
+# define MONITOR_INTERVAL_US	1000
+
+struct	s_philo;
 
 typedef struct s_sim
 {
-	int			count;
-	long		start_ms;
-	int			t_die;
-	int			t_eat;
-	int			t_sleep;
-	int			must_eat;
-	int			stop;
-	int			finished;
+	int				count;
+	long			start_ms;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				must_eat;
+	int				stop;
+	int				finished;
 	pthread_mutex_t	print;
 	pthread_mutex_t	state;
 	pthread_mutex_t	*forks;
@@ -39,31 +43,31 @@ typedef struct s_sim
 
 typedef struct s_philo
 {
-	int			id;
-	int			meals;
-	long		last_meal;
-	pthread_t	thread;
+	int				id;
+	int				meals;
+	long			last_meal;
+	pthread_t		thread;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-	t_sim		*sim;
+	t_sim			*sim;
 }	t_philo;
 
-int	parse_args(t_sim *sim, int argc, char **argv);
-int	setup_sim(t_sim *sim);
-void	cleanup_sim(t_sim *sim);
+int		parse_args(t_sim *sim, int argc, char **argv);
+int		initialize_simulation(t_sim *sim);
+void	cleanup_simulation(t_sim *sim);
 
-long	now_ms(void);
-long	elapsed_ms(long start);
-void	ms_sleep(t_sim *sim, int duration);
+long	get_current_time_ms(void);
+long	calculate_elapsed_time_ms(long start);
+void	sleep_milliseconds(t_sim *sim, int duration);
 
-void	print_status(t_philo *philo, const char *status);
+void	print_philosopher_status(t_philo *philo, const char *status);
 
-int	get_stop(t_sim *sim);
-void	set_stop(t_sim *sim);
-void	record_meal(t_philo *philo);
-void	*monitor(void *arg);
+int		is_simulation_stopped(t_sim *sim);
+void	stop_simulation(t_sim *sim);
+void	update_philosopher_meal(t_philo *philo);
+void	*monitor_philosophers(void *arg);
 
-void	*philo_routine(void *arg);
-int	launch_simulation(t_sim *sim);
+void	*philosopher_routine(void *arg);
+int		start_simulation(t_sim *sim);
 
 #endif
